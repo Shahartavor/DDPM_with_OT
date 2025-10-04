@@ -3,8 +3,8 @@ Measuring and improving the distribution of diffusion-model generated data using
 
 # Active Phase Results
 In the Passive Phase (in title: Test OT per epoch), we used a simple CNN for feature extraction to project images into feature space.\
-For evaluation, 1,000 feature vectors were sampled from both the training and test sets (matching the MNIST test set size).\
-At each of the 35 epochs, we generated 1,000 synthetic samples from the checkpointed DDPM model trained above (with MSE noise prediction).\
+At each of the 35 epochs, we generated 1,000 synthetic samples from the checkpointed DDPM model (trained with MSE noise prediction) and compared them against 1,000 feature vectors from the training and test sets.
+
 We then computed three distances in feature space:
 1. OT between generated and training samples
 2. OT between generated and test samples
@@ -20,6 +20,7 @@ _Key findings:_
 <img width="1208" height="314" alt="ot_per_epoch_passive" src="https://github.com/user-attachments/assets/cc0c2352-27e0-4380-a5f2-2eb4c78d3cf3" />
 
 _Choosing blur_
+
 The OT loss includes a **blur** parameter (default 0.05) that controls entropy: higher values make distances smoother but less precise, while lower values stay closer to the original data
 We used blur=10, as it provided a favorable trade-off between coverage, fidelity, and overfitting in the Passive Phase, while preserving computational speed.
 <img width="1698" height="371" alt="blur=10" src="https://github.com/user-attachments/assets/691beb51-0900-4194-847e-6b0a71528c5d" />
