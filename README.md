@@ -74,7 +74,7 @@ Supports resuming from passive checkpoints or retraining. Logs losses/weights to
 
 ### 4. Retraining with Equal Weights and Blur=10:
 * From scratch, balanced MSE/OT.
-* **Results**: Balanced weights yield the best OT alignment (~200-300 gap), with grids showing high fidelity and diversity. However, training is slower due to stronger OT pull.
+* **Results**: Balanced weights yield the best OT alignment (~200-300 gap), with grids showing high fidelity and diversity. 
 
 <img width="1633" height="395" alt="retrain_equal_blur10_ot" src="https://github.com/user-attachments/assets/c68547df-468b-488d-9775-9b06644ad7c1" />
 <img width="1422" height="452" alt="retrain_equal_blur10_grid" src="https://github.com/user-attachments/assets/2fdd979e-aa86-445a-953b-e0ca526b0118" />
