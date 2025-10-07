@@ -8,9 +8,10 @@ The project is divided into two phases:
 - **Passive Phase**: Train a standard DDPM with MSE loss, extract features using a pre-trained CNN, generate samples, and measure distributional distances (OT, FID, MMD) to assess quality, coverage, fidelity, and overfitting.
 - **Active Phase**: Resume or retrain the DDPM by adding a differentiable OT loss term to the MSE, aiming to align generated features closer to the real distribution.
 
-Motivation: Diffusion models may suffer from distributional mismatches (e.g., mode collapse or low diversity). OT provides a robust metric and loss for better alignment, as it captures geometric differences in high-dimensional spaces.
+Motivation: Diffusion models may face mode collapse or low diversity; Optimal Transport improves alignment by capturing geometric distribution differences.
 
-To run: Open in Colab, install dependencies (cell 2), and execute sequentially. Training takes ~5-10 min/epoch on GPU. Customize epochs, blur, and runs in main section.
+### How to run:
+Open in Colab, install dependencies (cell 2), and execute sequentially. Training takes ~5-10 min/epoch on GPU. Customize epochs, blur, and runs in main section.
 
 ## Passive Phase
 In the Passive Phase, we train a DDPM using standard MSE loss. A simple CNN (trained to ~99% accuracy on MNIST classification) is used as a feature extractor to project images into a 128-dimensional feature space.
