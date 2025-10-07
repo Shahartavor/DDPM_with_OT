@@ -37,16 +37,17 @@ Key Results and Findings
 
 - **Coverage (Recall)**: Gradually add digits to test subset; OT decreases as coverage improves.
 - **Fidelity (Precision)**: Add noise to test; OT increases with noise std, measuring sharpness loss.
-- **Overfitting**: Mix train into half-test; OT to train decreases, to held-out test increases with mix fraction.
+- **Overfitting**: Mix train into half of the test set; OT to the train set decreases, while OT to the unmixed (held-out) test subset increases with the mixing fraction.
 
 ### Choosing Blur for OT
 The OT loss includes a blur parameter (default 0.05) that controls entropy: higher values make distances smoother but less precise, while lower values stay closer to the original data.
-We used blur=10, as it provided a favorable trade-off between coverage, fidelity, and overfitting in the Passive Phase, while preserving computational speed.
+We used **blur=10**, as it provided a favorable trade-off between coverage, fidelity, and overfitting in the Passive Phase, while preserving computational speed.
 <img width="1698" height="371" alt="blur=10" src="https://github.com/user-attachments/assets/691beb51-0900-4194-847e-6b0a71528c5d" />
 
 ## Active Phase
 
-In the Active Phase, we add a differentiable OT term to the MSE loss during training, using GeomLoss (`Sinkhorn, p=2, debias=True`). Dynamic weighting balances MSE/OT (`ot_weight = loss_eps / loss_ot`).
+In the Active Phase, we add a differentiable OT term to the MSE loss during training, using GeomLoss (`Sinkhorn, p=2, debias=True`).
+Dynamic weighting balances MSE/OT (`ot_weight = loss_eps / loss_ot`).
 Supports resuming from passive checkpoints or retraining. Logs losses/weights to WandB. Generates/evaluates per epoch.
 
 ### 1. Resume with Higher MSE Weight (OT Weight Lower) and Blur=10
