@@ -53,33 +53,33 @@ Supports resuming from passive checkpoints or retraining. Logs losses/weights to
 ### 1. Resume with Higher MSE Weight (OT Weight Lower) and Blur=10
 
 * Starts from passive epoch 35, trains to 50.
-* **Results**: OT distances decrease slightly compared to Passive, but the gap to baseline remains large (~500+). Generated grids show improved sharpness, but diversity is limited.
+* **Results**: OT distances decrease slightly compared to Passive, but the gap to baseline remains large (~500+). Generated grids show improved sharpness, though sample diversity remains somewhat limited.
 
 <img width="1617" height="405" alt="finetune_mse_high_blur10_ot" src="https://github.com/user-attachments/assets/33a5099a-4dd8-4fca-851b-995266d894d9" />
 <img width="1446" height="451" alt="finetune_mse_high_blur10_grid" src="https://github.com/user-attachments/assets/074c2c27-75df-4f94-a81a-c2f22b38f7c7" />
 
 ### 2. Retraining with Higher MSE Weight and Blur=10:
 * From scratch.
-* **Results**: Better convergence than fine-tuning; OT drops faster early on but plateaus. Grids exhibit more varied digits, suggesting improved coverage.
+* **Results**: Better convergence than fine-tuning; OT distance decreases quickly at first, then stops improving and stays stable at a certain level. Grids exhibit more varied digits, suggesting improved coverage.
 
 <img width="1639" height="399" alt="retrain_mse_high_blur10_ot" src="https://github.com/user-attachments/assets/642c0f7a-612e-4e92-8cc9-3a1ba9f2ab3d" />
 <img width="1521" height="447" alt="retrain_mse_high_blur10_grid" src="https://github.com/user-attachments/assets/83666e0b-d444-4eca-b225-d29f8c92a4be" />
 
 ### 3. Retraining with Higher MSE Weight and Blur=0.05:
 * From scratch, lower blur for precision.
-* **Results**: Lower blur leads to sharper OT reductions, but higher instability (spikes in loss). Grids are crisper, but some artifacts appear.
+* **Results**: Lower blur leads to sharper OT reductions, but higher instability (spikes in loss). Grids show cleaner, more defined digits, though occasional artifacts emerge.
+This setting also requires longer training due to the reduced blur smoothing effect.
 
 <img width="1633" height="395" alt="retrain_mse_high_blur0 05_ot" src="https://github.com/user-attachments/assets/a5d59c6d-3ab0-45e1-bc9c-4ab46a980f2f" />
 <img width="1475" height="456" alt="retrain_mse_high_blur0 05_grid" src="https://github.com/user-attachments/assets/d708c31a-6b02-46fd-b128-4f59db502217" />
 
 ### 4. Retraining with Equal Weights and Blur=10:
 * From scratch, balanced MSE/OT.
-* **Results**: Balanced weights yield the best OT alignment (~200-300 gap), with grids showing high fidelity and diversity. 
+* **Results**: Balanced weights achieve the lower OT from passive phase (~500 vs. 100 baseline), with sharp and diverse generated samples.
 
 <img width="1633" height="395" alt="retrain_equal_blur10_ot" src="https://github.com/user-attachments/assets/c68547df-468b-488d-9775-9b06644ad7c1" />
 <img width="1422" height="452" alt="retrain_equal_blur10_grid" src="https://github.com/user-attachments/assets/2fdd979e-aa86-445a-953b-e0ca526b0118" />
 
 ## Conclusion
-Passive Phase shows DDPM convergence but gaps; Active Phase with OT reduces them, with retraining and balanced weights performing best. Dynamic weighting helps stability.
-
-Future: Adaptive blur, complex datasets, class-conditioning.
+1. Incorporating OT loss during training, particularly with blur = 10 (in both retraining and resumed runs), improved alignment over standard DDPM, reducing OT(train, test) and OT(gen, test) **from ~600 to ~500**.
+2. The generated samples also show higher fidelity and visual quality, confirming that the OT term enhances both quantitative and qualitative performance.
